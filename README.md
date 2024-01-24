@@ -16,6 +16,7 @@ Starting out on minecraft and then to steam games. Terminal command, and later g
 - [ ] Cold Waters
 - [ ] Open Rails
 - [ ] Run8 Liveries
+- [ ] **Steel Fury Kharkov 1942** (Will have its own documentation made later on for more information regarding this.)
 
 ### Game Requests
 It would be very appreciated for ideas on what games to support. Make an issue and I'll check it out and respond as quickly as possible.
