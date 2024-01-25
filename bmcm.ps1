@@ -10,11 +10,11 @@ param (
     [Parameter()]
     [switch]$log
 )
-function Clear-Temp {
+function Clear-ext {
     param (
         $fn
     )
-    Remove-Item  $PSScriptRoot\temp\$fn -Recurse -Force -Confirm:$false  | out-null
+    Remove-Item  $PSScriptRoot\ext\$fn -Recurse -Force -Confirm:$false  | out-null
 }
 function Add-ModLog {
     param (
@@ -30,22 +30,22 @@ function Zip {
     Write-Verbose ".zip found..."
     $zp = Resolve-Path -Path $z
     $zn = [System.IO.Path]::GetFileNameWithoutExtension($z)
-    New-Item -Path $PSScriptRoot\temp -Name $zn -ItemType "directory"  | out-null
+    New-Item -Path $PSScriptRoot\ext -Name $zn -ItemType "directory"  | out-null
     Write-Verbose "Unzipping..."
-    Expand-Archive -Path $zp -DestinationPath $PSScriptRoot\temp\$zn  | out-null        
+    Expand-Archive -Path $zp -DestinationPath $PSScriptRoot\ext\$zn  | out-null        
     Write-Verbose "Searching for .jar..."
     # Pt. 1 : Check for .jar file in .zip archive
-    $archive = @(Get-ChildItem $PSScriptRoot\temp\$zn -Filter *.jar -Recurse -File)
+    $archive = @(Get-ChildItem $PSScriptRoot\ext\$zn -Filter *.jar -Recurse -File)
     if ($archive.Length -eq 0) {
         Write-Verbose "No .jar file found in this archive"
-        Clear-Temp $zn
+        Clear-ext $zn
         exit
     }
     Write-Verbose ".jar file found, installing..."
     # Pt. 2 : Do installation
     if (-Not (Test-Path -Path $env:APPDATA\.minecraft)) {
         Write-Host "No .minecraft folder found in $env:APPDATA"
-        Clear-Temp $zn
+        Clear-ext $zn
         exit
     }
     Write-Verbose ".minecraft folder found..."
@@ -58,11 +58,11 @@ function Zip {
         Move-Item -Path $archive -Destination $env:APPDATA\.minecraft\mods -ErrorAction Stop
     } catch {
         Write-Host "This mod is already installed!"
-        Clear-Temp $zn
+        Clear-ext $zn
         exit
     }
-    Clear-Temp $zn
-    Write-Verbose "Cleaning temp folder..."
+    Clear-ext $zn
+    Write-Verbose "Cleaning ext folder..."
     Add-ModLog $zn
     Write-Host "Installation Complete!"
 }
