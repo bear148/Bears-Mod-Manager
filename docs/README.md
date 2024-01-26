@@ -3,7 +3,6 @@ bear148
 
 ### Installation Help Pages
 - [Minecraft Command Docs](./Minecraft.md)
-- [Steel Fury Kharkov 1942 Docs](./STF1942.md)
 
 ### Mod Manager specifics
 * ext folder purpose:
