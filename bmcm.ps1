@@ -1,6 +1,12 @@
 param (
-    [Parameter()]
+    [Parameter(mandatory)]
+    [switch]$dp,
+    [Parameter(mandatory)]
+    [switch]$md,    
+    [Parameter(mandatory)]
     [string]$file,
+    [Parameter(mandatory)]
+    [string]$world,
     [Parameter()]
     [switch]$Clear,
     [Parameter()]
@@ -8,7 +14,9 @@ param (
     [Parameter()]
     [switch]$MCVersions,
     [Parameter()]
-    [switch]$log
+    [switch]$log,
+    [Parameter()]
+    [switch]$help
 )
 function Clear-ext {
     param (
@@ -20,7 +28,7 @@ function Add-ModLog {
     param (
         $ModName
     )
-    Add-Content -Path $PSScriptRoot\installed.log -Value "($(Get-Date)): $($ModName)"
+    Add-Content -Path $PSScriptRoot\installed.log -Value "($(Get-Date)): $($ModName) (Minecraft)"
 }
 function Zip {
     [CmdletBinding()]
@@ -119,6 +127,8 @@ function Initialize-Mod {
     }
 }
 #######################################################################################
+#                                       FLAGS                                         #
+#######################################################################################
 if ($clear) {
     Write-Verbose "Clearing Installation log..."
     Clear-Content -Path $PSScriptRoot\installed.log
@@ -136,9 +146,26 @@ if ($MCVersions) {
     Get-ChildItem "$env:APPDATA\.minecraft\versions" -directory | Select-Object FullName
     return
 }
-if (![string]::IsNullOrEmpty($file)) {
-    Initialize-Mod $file
-    return
+
+if ($dp) {
+    if (![string]::IsNullOrEmpty($file)) {
+        if (![string]::IsNullOrEmpty($world)) {
+            Write-Host "Install DP"
+            Write-Host "file: $($file) world: $($world)"
+        } else {
+            Write-Host "No world specified"
+        }
+    } else {
+        Write-Host "No datapack specified"
+    }
+}
+
+if ($md) {
+    if (![string]::IsNullOrEmpty($file)) {
+        Initialize-Mod $file
+    } else {
+        Write-Host "No mod specified"
+    }
 }
 if ($log) {
     Write-Host $(Get-Content $PSScriptRoot\installed.log)
