@@ -1,11 +1,11 @@
 param (
-    [Parameter(mandatory)]
+    [Parameter()]
     [switch]$dp,
-    [Parameter(mandatory)]
+    [Parameter()]
     [switch]$md,    
-    [Parameter(mandatory)]
+    [Parameter()]
     [string]$file,
-    [Parameter(mandatory)]
+    [Parameter()]
     [string]$world,
     [Parameter()]
     [switch]$Clear,
