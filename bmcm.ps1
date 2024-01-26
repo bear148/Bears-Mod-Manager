@@ -18,6 +18,8 @@ param (
     [Parameter()]
     [switch]$help
 )
+
+$bmcmversion = "v1.0.1"
 function Clear-ext {
     param (
         $fn

@@ -1,4 +1,5 @@
 # Bears-Mod-Manager
+#### Current version: **v1.0.1**
 Starting out on minecraft and then to steam games. Terminal command, and later graphical menu made to ease the somewhat tedious installation of mods for many games.
 
 ### Current Plan
