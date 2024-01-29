@@ -30,7 +30,7 @@ function Add-ModLog {
     param (
         $ModName
     )
-    Add-Content -Path $PSScriptRoot\installed.log -Value "($(Get-Date)): $($ModName) (Minecraft)"
+    Add-Content -Path $PSScriptRoot\logs\installed.log -Value "($(Get-Date)): $($ModName) (Minecraft) (Path: $($env:APPDATA)\.minecraft\mods\$($ModName))"
 }
 function Zip {
     [CmdletBinding()]
@@ -133,8 +133,8 @@ function Initialize-Mod {
 #######################################################################################
 if ($clear) {
     Write-Verbose "Clearing Installation log..."
-    Clear-Content -Path $PSScriptRoot\installed.log
-    Add-Content -Path $PSScriptRoot\installed.log -Value "-- START OF INSTALLED LOG FOR Bear's MINECRAFT Manager --"
+    Clear-Content -Path $PSScriptRoot\logs\installed.log
+    Add-Content -Path $PSScriptRoot\logs\installed.log -Value "-- START OF INSTALLED LOG FOR Bear's Mod Manager --"
     Write-Host "Installation log cleared!"
     return
 }
@@ -170,5 +170,5 @@ if ($md) {
     }
 }
 if ($log) {
-    Write-Host $(Get-Content $PSScriptRoot\installed.log)
+    Write-Host $(Get-Content $PSScriptRoot\logs\installed.log)
 }
